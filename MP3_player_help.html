@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3プレイヤー - ヘルプ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+        
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section h2::before {
+            content: '▸';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .section p, .section li {
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .keyboard-key {
+            display: inline-block;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 3px 8px;
+            margin: 0 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+        
+        .keyboard-shortcut {
+            background: #f9f9f9;
+            border-left: 4px solid #764ba2;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .keyboard-shortcut strong {
+            color: #764ba2;
+        }
+        
+        .feature-box {
+            background: #f5f7ff;
+            border: 1px solid #e0e7ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .feature-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .tips-box {
+            background: #fffef0;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tips-box strong {
+            color: #ff8c00;
+        }
+        
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .close-btn:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+        
+        .footer {
+            background: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table td,
+            .comparison-table th {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="close-btn" onclick="window.close();" title="ウィンドウを閉じる">×</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎵 MP3プレイヤー ヘルプ</h1>
+            <p>キーボード操作ガイドと機能説明</p>
+        </div>
+        
+        <div class="content">
+            <!-- 基本機能セクション -->
+            <div class="section">
+                <h2>基本機能</h2>
+                
+                <h3>1. ファイルの追加</h3>
+                <p>「ファイルを選択」ボタンをクリックして、MP3ファイルを選択します。複数ファイルの同時選択に対応しています。</p>
+                
+                <h3>2. ダークモード・ライトモード</h3>
+                <p>左上の☀️/🌙ボタンをクリックして、表示モードを切り替えられます。</p>
+                
+                <h3>3. グローバル音量コントロール</h3>
+                <p>右上の縦型スライダーでアプリ全体の音量を調整できます。0～100%の範囲で設定可能です。</p>
+                
+                <h3>4. ループ機能</h3>
+                <p>各ファイルの右側の「ループOFF」ボタンをクリックすることで、個別にループ再生のON/OFFを設定できます。</p>
+                <div class="feature-box">
+                    <h4>💡 ループボタンの表示</h4>
+                    <ul>
+                        <li><strong>ループOFF</strong> (白背景): ループ再生が無効</li>
+                        <li><strong>ループON</strong> (緑背景): ループ再生が有効</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- キーボード操作セクション -->
+            <div class="section">
+                <h2>キーボード操作</h2>
+                
+                <h3>曲の選択・移動</h3>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">↑</span> 上矢印キー</strong><br>
+                    上の曲を選択します
+                </div>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">↓</span> 下矢印キー</strong><br>
+                    下の曲を選択します
+                </div>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">Shift</span> + <span class="keyboard-key">↑</span></strong><br>
+                    上の曲を追加選択します（複数選択対応）
+                </div>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">Shift</span> + <span class="keyboard-key">↓</span></strong><br>
+                    下の曲を追加選択します（複数選択対応）
+                </div>
+                
+                <h3>再生制御</h3>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">Enter</span></strong><br>
+                    選択中の曲を頭出しして即座に再生します（フェードなし）
+                </div>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">←</span> 左矢印キー</strong><br>
+                    再生中の曲を停止します
+                </div>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">→</span> 右矢印キー</strong><br>
+                    選択中の曲を再生します
+                </div>
+                
+                <h3>高度な再生操作</h3>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">Shift</span> + <span class="keyboard-key">→</span></strong><br>
+                    選択中の曲を2秒かけてフェードイン再生します
+                </div>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">Shift</span> + <span class="keyboard-key">Enter</span></strong><br>
+                    現在の曲をフェードアウト（3秒）し、次の曲をフェードイン（1秒）で再生します
+                </div>
+                <div class="keyboard-shortcut">
+                    <strong><span class="keyboard-key">Shift</span> + <span class="keyboard-key">←</span></strong><br>
+                    再生中の曲を先頭に戻して停止します
+                </div>
+            </div>
+            
+            <!-- リスト操作セクション -->
+            <div class="section">
+                <h2>リスト操作</h2>
+                
+                <h3>ドラッグ&ドロップ並び替え</h3>
+                <p>リスト内のファイルをマウスでドラッグして、曲の順序を自由に並び替えられます。並び替え後も自動的にファイル番号が更新されます。</p>
+                
+                <h3>ファイル削除</h3>
+                <p>各ファイルの右側の「削除」ボタンをクリックすると、確認ダイアログが表示されます。「OK」をクリックするとファイルがリストから削除されます。</p>
+                
+                <div class="tips-box">
+                    <strong>⚠️ 注意:</strong> 再生中のファイルを削除した場合でも、音声の再生は続きます。削除後は自動的に選択状態がクリアされます。
+                </div>
+            </div>
+            
+            <!-- 操作フロー例セクション -->
+            <div class="section">
+                <h2>操作フロー例</h2>
+                
+                <h3>例1: 複数の曲をフェードインで連続再生</h3>
+                <ol>
+                    <li>ファイルを複数追加します</li>
+                    <li><span class="keyboard-key">↓</span>キーで曲を選択します</li>
+                    <li><span class="keyboard-key">Shift</span> + <span class="keyboard-key">→</span>で最初の曲をフェードイン再生</li>
+                    <li><span class="keyboard-key">Shift</span> + <span class="keyboard-key">Enter</span>を押して、次の曲に滑らかに切り替わります</li>
+                </ol>
+                
+                <h3>例2: 特定の曲をループ再生</h3>
+                <ol>
+                    <li>再生したい曲をクリックして選択</li>
+                    <li>その曲の「ループOFF」ボタンをクリック（「ループON」に変わります）</li>
+                    <li><span class="keyboard-key">Enter</span>で再生を開始</li>
+                    <li>曲が終わると自動的に頭に戻って再生されます</li>
+                </ol>
+                
+                <h3>例3: 大音量→小音量への滑らかな切り替え</h3>
+                <ol>
+                    <li>音量スライダーを100%に設定</li>
+                    <li><span class="keyboard-key">Shift</span> + <span class="keyboard-key">→</span>で曲をフェードイン再生</li>
+                    <li>再生中に音量スライダーをゆっくり下げて調整</li>
+                </ol>
+            </div>
+            
+            <!-- クイックリファレンステーブル -->
+            <div class="section">
+                <h2>クイックリファレンス</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>キー操作</th>
+                            <th>説明</th>
+                            <th>用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="keyboard-key">↑</span> / <span class="keyboard-key">↓</span></td>
+                            <td>曲を選択</td>
+                            <td>リスト内で曲を選び直す</td>
+                        </tr>
+                        <tr>
+                            <td><span class="keyboard-key">Enter</span></td>
+                            <td>即座に再生</td>
+                            <td>すぐに曲を聴きたい時</td>
+                        </tr>
+                        <tr>
+                            <td><span class="keyboard-key">←</span></td>
+                            <td>停止</td>
+                            <td>再生を中断</td>
+                        </tr>
+                        <tr>
+                            <td><span class="keyboard-key">→</span></td>
+                            <td>再生</td>
+                            <td>選択曲を再生開始</td>
+                        </tr>
+                        <tr>
+                            <td><span class="keyboard-key">Shift</span> + <span class="keyboard-key">→</span></td>
+                            <td>フェードイン再生</td>
+                            <td>滑らかに曲を再生</td>
+                        </tr>
+                        <tr>
+                            <td><span class="keyboard-key">Shift</span> + <span class="keyboard-key">Enter</span></td>
+                            <td>スムーズ切り替え</td>
+                            <td>複数曲を連続再生</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- トラブルシューティング -->
+            <div class="section">
+                <h2>トラブルシューティング</h2>
+                
+                <h3>Q: 音が出ません</h3>
+                <ul>
+                    <li>音量スライダーが0%になっていないか確認</li>
+                    <li>ブラウザの音量設定を確認</li>
+                    <li>ファイルが再生対応のMP3形式であることを確認</li>
+                </ul>
+                
+                <h3>Q: キーボード操作が効きません</h3>
+                <ul>
+                    <li>入力フィールドやボタンがフォーカスされていないか確認</li>
+                    <li>ページを再度読み込んで試す</li>
+                    <li>ブラウザの開発者ツールでコンソールエラーを確認</li>
+                </ul>
+                
+                <h3>Q: ファイルがアップロードできません</h3>
+                <ul>
+                    <li>MP3など対応フォーマットのファイルか確認</li>
+                    <li>ファイルサイズが大きすぎないか確認（ブラウザ依存）</li>
+                    <li>ブラウザのストレージ容量に余裕があるか確認</li>
+                </ul>
+            </div>
+            
+            <!-- 補足 -->
+            <div class="section">
+                <h2>補足事項</h2>
+                
+                <div class="feature-box">
+                    <h4>🔒 メモリ管理</h4>
+                    <p>ファイルを削除すると、自動的にメモリ（ObjectURL）が解放されます。不要になったファイルは積極的に削除してください。</p>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>🎨 テーマ切り替え</h4>
+                    <p>ダークモードとライトモード間の切り替えは即座に反映されます。長時間の使用でも快適に操作できるテーマをお選びください。</p>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>⌨️ アクセシビリティ</h4>
+                    <p>このプレイヤーはキーボード操作を重視した設計になっています。マウス操作とキーボード操作を組み合わせることで、より効率的に楽曲を管理・再生できます。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>MP3プレイヤー v7.3 | ヘルプドキュメント</p>
+            <p>右上の「×」ボタンをクリックして、このウィンドウを閉じることができます</p>
+        </div>
+    </div>
+</body>
+</html>
